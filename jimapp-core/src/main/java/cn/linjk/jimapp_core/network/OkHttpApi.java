@@ -11,16 +11,18 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Created by LinJK on 7/1/16.
- *
- * 网络访问抽象基类，具体应用应继承此类根据实际重写get与post等方法
- *
  */
 public abstract class OkHttpApi {
 
+    /**
+     * Instantiates a new Ok http api.
+     */
     public OkHttpApi() {}
 
     /**
-     *  访问路径格式为: http://xxxxxx.xx:xx/<参数path>
+     * request path is like: http://xxxxxx.xx:xx/(param:path)
+     *
+     * @param path the path
      */
     public void getPath(String path) {
         String protocolString = (currentProtocol==Protocol.HTTP ? "http://" : "https://");
@@ -30,18 +32,49 @@ public abstract class OkHttpApi {
         doTheCall(request);
     }
 
+    /**
+     * The interface On request call back.
+     */
     public interface OnRequestCallBack {
+        /**
+         * On before.
+         *
+         * @param requestId the request id
+         */
         void onBefore(int requestId);
+
+        /**
+         * On failure.
+         *
+         * @param requestId the request id
+         */
         void onFailure(int requestId);
+
+        /**
+         * On response.
+         *
+         * @param requestId the request id
+         * @param result    the result
+         */
         void onResponse(int requestId, String result);
     }
 
     private OnRequestCallBack onRequestCallBack;
 
+    /**
+     * Add listener.
+     *
+     * @param callBack the call back
+     */
     public void addListener(OnRequestCallBack callBack){
         this.onRequestCallBack = callBack;
     }
 
+    /**
+     * Sets request id.
+     *
+     * @param requestId the request id
+     */
     public void setRequestId(int requestId) {
         this.requestId = requestId;
     }
@@ -71,14 +104,32 @@ public abstract class OkHttpApi {
         });
     }
 
-    //////////////////////////////////////////////////////////////////////
+    /**
+     * The enum Protocol.
+     */
+//////////////////////////////////////////////////////////////////////
     public enum Protocol {
-        HTTP, HTTPS
+        /**
+         * Http protocol.
+         */
+        HTTP, /**
+         * Https protocol.
+         */
+        HTTPS
     }
 
+    /**
+     * The constant JSON.
+     */
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
+    /**
+     * The Current base url.
+     */
     protected String   currentBaseUrl;
+    /**
+     * The Current protocol.
+     */
     protected Protocol currentProtocol;
 
     private final String SESSION_ID    = "connectsid";

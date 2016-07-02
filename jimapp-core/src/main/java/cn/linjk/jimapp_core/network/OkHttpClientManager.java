@@ -19,6 +19,11 @@ import javax.net.ssl.SSLSession;
  */
 public class OkHttpClientManager {
 
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
     public static OkHttpClientManager getInstance() {
         if (null == mInstance) {
             synchronized (OkHttpClientManager.class) {
@@ -31,10 +36,20 @@ public class OkHttpClientManager {
         return mInstance;
     }
 
+    /**
+     * Gets client.
+     *
+     * @return the client
+     */
     public static OkHttpClient getClient() {
         return getInstance().client();
     }
 
+    /**
+     * Client ok http client.
+     *
+     * @return the ok http client
+     */
     public OkHttpClient client() {
         return mOkHttpClient;
     }

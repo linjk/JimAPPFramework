@@ -20,6 +20,6 @@ public class ExampleUnitTest {
         int curDayOfMonth = TimeUtils.curDayOfMonth();
         int curMonth      = TimeUtils.curMonth();
 
-        System.out.print("今天是: " + curMonth + "月" + curDayOfMonth + "号");
+        System.out.print("Today is: " + curMonth + "month" + curDayOfMonth + "day");
     }
 }

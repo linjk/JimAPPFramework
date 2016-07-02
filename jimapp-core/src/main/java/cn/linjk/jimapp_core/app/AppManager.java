@@ -8,10 +8,8 @@ import java.util.Stack;
 
 /**
  * Created by LinJK on 6/23/16.
- * <p/>
- * A class to manager the activity in the application.
  *
- * @author  Linjk
+ * @author Linjk
  * @version 1.0
  */
 public class AppManager {
@@ -49,10 +47,9 @@ public class AppManager {
 
     /**
      * Current activity .
-     * <p/>
-     * The returned activity is the top activity of the activity stack.
+     * <p>The returned activity is the top activity of the activity stack.</p>
      *
-     * @return activity
+     * @return activity activity
      */
     public Activity currentActivity() {
         return stackActivity.lastElement();
@@ -60,8 +57,7 @@ public class AppManager {
 
     /**
      * Finish Activity.
-     * <p/>
-     * Finished the top activity of the activity stack.
+     * <p>Finished the top activity of the activity stack.</p>
      */
     public void finishActivity() {
         finishActivity(stackActivity.lastElement());
@@ -85,7 +81,6 @@ public class AppManager {
 
     /**
      * Remove an activity from the activity stack.
-     * <p/>
      * You can used when override 'Activity.onDestroy()'
      *
      * @param activity the activity to remove from stack.
@@ -124,6 +119,8 @@ public class AppManager {
 
     /**
      * Exit the application.
+     *
+     * @param context the context
      */
     public void ExitApp(Context context) {
         try {
