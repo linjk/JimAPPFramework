@@ -2,6 +2,7 @@ package cn.linjk.jimapp_core;
 
 import org.junit.Test;
 
+import cn.linjk.jimapp_core.utils.StringUtils;
 import cn.linjk.jimapp_core.utils.TimeUtils;
 
 import static org.junit.Assert.*;
@@ -20,6 +21,14 @@ public class ExampleUnitTest {
         int curDayOfMonth = TimeUtils.curDayOfMonth();
         int curMonth      = TimeUtils.curMonth();
 
-        System.out.print("Today is: " + curMonth + "month" + curDayOfMonth + "day");
+        System.out.println("Today is: " + curMonth + "month" + curDayOfMonth + "day");
+    }
+
+    @Test
+    public void testStringUtils() {
+        byte[] temp = StringUtils.HexStringToByteArray("68123456789012680102");
+        for (byte tmp : temp) {
+            System.out.println(String.format("%02X", tmp));
+        }
     }
 }
