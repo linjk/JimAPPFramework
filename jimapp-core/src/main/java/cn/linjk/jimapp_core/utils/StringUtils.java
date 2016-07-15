@@ -1,5 +1,6 @@
 package cn.linjk.jimapp_core.utils;
 
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -63,5 +64,54 @@ public class StringUtils {
         }
 
         return null;
+    }
+
+    public static String ByteArrayToHexString(byte[] data) {
+        return ByteArrayToHexString(data, 0, data.length);
+    }
+
+    public static String ByteArrayToHexString(byte[] data,
+                                              int startIndex, int length) {
+        StringBuffer sb = new StringBuffer(length*3);
+
+        for (int i = 0; i < length; i++) {
+            sb.append(ByteToHex(data[startIndex+i]));
+            sb.append(" ");
+        }
+
+        return sb.toString().toUpperCase(Locale.ENGLISH);
+    }
+
+    public static String ByteToHex(byte data) {
+        return ByteToHex(data, 2);
+    }
+
+    public static String ByteToHex(byte data, int outputLength) {
+        String tmp = Integer.toHexString((data&0x000000FF));
+
+        return padLeftToRightAlign(tmp, outputLength, '0');
+    }
+
+    public static boolean isStringNullOrEmpty(String string) {
+        return string==null || string.trim().length()==0;
+    }
+
+    /**
+     * RightAlign the string with filling specific characteristic in the left side.
+     * @param string
+     * @param totalLength
+     * @param fillChar
+     * @return
+     */
+    public static String padLeftToRightAlign(String string,
+                                             int totalLength,
+                                             char fillChar) {
+        StringBuffer stringBuffer = new StringBuffer(string);
+
+        while (stringBuffer.length() < totalLength) {
+            stringBuffer.insert(0, fillChar);
+        }
+
+        return stringBuffer.toString();
     }
 }

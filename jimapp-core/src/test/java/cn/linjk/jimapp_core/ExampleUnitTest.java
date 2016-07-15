@@ -26,9 +26,6 @@ public class ExampleUnitTest {
 
     @Test
     public void testStringUtils() {
-        byte[] temp = StringUtils.HexStringToByteArray("68123456789012680102");
-        for (byte tmp : temp) {
-            System.out.println(String.format("%02X", tmp));
-        }
+        System.out.println(StringUtils.padLeftToRightAlign("2", 2, '0'));
     }
 }
