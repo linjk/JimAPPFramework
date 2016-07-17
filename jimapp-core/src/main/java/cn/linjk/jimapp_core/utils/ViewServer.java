@@ -27,7 +27,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-/*
+/**
  * Copyright (C) 2011 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -52,13 +52,10 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * make HierarchyViewer work on any device. You must be very careful
  * however to only enable HierarchyViewer when debugging your
  * application.</p>
- * <p/>
  * <p>To use this view server, your application must require the INTERNET
  * permission.</p>
- * <p/>
  * <p>The recommended way to use this API is to register activities when
  * they are created, and to unregister them when they get destroyed:</p>
- * <p/>
  * <pre>
  * public class MyActivity extends Activity {
  *     public void onCreate(Bundle savedInstanceState) {
@@ -78,11 +75,9 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  *     }
  * }
  * </pre>
- * <p/>
  * <p>
  * In a similar fashion, you can use this API with an InputMethodService:
  * </p>
- * <p/>
  * <pre>
  * public class MyInputMethodService extends InputMethodService {
  *     public void onCreate() {
@@ -114,14 +109,16 @@ public class ViewServer implements Runnable {
     private static final int VIEW_SERVER_MAX_CONNECTIONS = 10;
     private static final String BUILD_TYPE_USER = "user";
 
-    // Debug facility
+    /**Debug facility*/
     private static final String LOG_TAG = "ViewServer";
 
     private static final String VALUE_PROTOCOL_VERSION = "4";
     private static final String VALUE_SERVER_VERSION = "4";
 
-    // Protocol commands
-    // Returns the protocol version
+    /**
+     * Protocol commands
+     *  Returns the protocol version
+     */
     private static final String COMMAND_PROTOCOL_VERSION = "PROTOCOL";
     // Returns the server version
     private static final String COMMAND_SERVER_VERSION = "SERVER";
@@ -153,14 +150,14 @@ public class ViewServer implements Runnable {
      * Returns a unique instance of the ViewServer. This method should only be
      * called from the main thread of your application. The server will have
      * the same lifetime as your process.
-     * <p/>
+     *
      * If your application does not have the <code>android:debuggable</code>
      * flag set in its manifest, the server returned by this method will
      * be a dummy object that does not do anything. This allows you to use
      * the same code in debug and release versions of your application.
      *
-     * @param context A Context used to check whether the application is
-     *                debuggable, this can be the application context
+     * @param context A Context used to check whether the application is                debuggable, this can be the application context
+     * @return the view server
      */
     public static ViewServer get(Context context) {
         ApplicationInfo info = context.getApplicationInfo();
@@ -204,8 +201,8 @@ public class ViewServer implements Runnable {
      *
      * @return True if the server was successfully created, or false if it already exists.
      * @throws IOException If the server cannot be created.
-     * @see #stop()
-     * @see #isRunning()
+     * @see #stop() #stop()
+     * @see #isRunning() #isRunning()
      */
     public boolean start() throws IOException {
         if (mThread != null) {
@@ -222,10 +219,9 @@ public class ViewServer implements Runnable {
     /**
      * Stops the server.
      *
-     * @return True if the server was stopped, false if an error occurred or if the
-     * server wasn't started.
-     * @see #start()
-     * @see #isRunning()
+     * @return True if the server was stopped, false if an error occurred or if the server wasn't started.
+     * @see #start() #start()
+     * @see #isRunning() #isRunning()
      */
     public boolean stop() {
         if (mThread != null) {
@@ -271,8 +267,8 @@ public class ViewServer implements Runnable {
      * Indicates whether the server is currently running.
      *
      * @return True if the server is running, false otherwise.
-     * @see #start()
-     * @see #stop()
+     * @see #start() #start()
+     * @see #stop() #stop()
      */
     public boolean isRunning() {
         return mThread != null && mThread.isAlive();
@@ -282,8 +278,8 @@ public class ViewServer implements Runnable {
      * Invoke this method to register a new view hierarchy.
      *
      * @param activity The activity whose view hierarchy/window to register
-     * @see #addWindow(View, String)
-     * @see #removeWindow(Activity)
+     * @see #addWindow(View, String) #addWindow(View, String)
+     * @see #removeWindow(Activity) #removeWindow(Activity)
      */
     public void addWindow(Activity activity) {
         String name = activity.getTitle().toString();
@@ -300,8 +296,8 @@ public class ViewServer implements Runnable {
      * Invoke this method to unregister a view hierarchy.
      *
      * @param activity The activity whose view hierarchy/window to unregister
-     * @see #addWindow(Activity)
-     * @see #removeWindow(View)
+     * @see #addWindow(Activity) #addWindow(Activity)
+     * @see #removeWindow(View) #removeWindow(View)
      */
     public void removeWindow(Activity activity) {
         removeWindow(activity.getWindow().getDecorView());
@@ -311,8 +307,8 @@ public class ViewServer implements Runnable {
      * Invoke this method to register a new view hierarchy.
      *
      * @param view A view that belongs to the view hierarchy/window to register
-     * @name name The name of the view hierarchy/window to register
-     * @see #removeWindow(View)
+     * @param name The name of the view hierarchy/window to register
+     * @see #removeWindow(View) #removeWindow(View)
      */
     public void addWindow(View view, String name) {
         mWindowsLock.writeLock().lock();
@@ -328,7 +324,7 @@ public class ViewServer implements Runnable {
      * Invoke this method to unregister a view hierarchy.
      *
      * @param view A view that belongs to the view hierarchy/window to unregister
-     * @see #addWindow(View, String)
+     * @see #addWindow(View, String) #addWindow(View, String)
      */
     public void removeWindow(View view) {
         mWindowsLock.writeLock().lock();
@@ -343,8 +339,7 @@ public class ViewServer implements Runnable {
     /**
      * Invoke this method to change the currently focused window.
      *
-     * @param activity The activity whose view hierarchy/window hasfocus,
-     *                 or null to remove focus
+     * @param activity The activity whose view hierarchy/window hasfocus,                 or null to remove focus
      */
     public void setFocusedWindow(Activity activity) {
         setFocusedWindow(activity.getWindow().getDecorView());
@@ -353,8 +348,7 @@ public class ViewServer implements Runnable {
     /**
      * Invoke this method to change the currently focused window.
      *
-     * @param view A view that belongs to the view hierarchy/window that has focus,
-     *             or null to remove focus
+     * @param view A view that belongs to the view hierarchy/window that has focus,             or null to remove focus
      */
     public void setFocusedWindow(View view) {
         mFocusLock.writeLock().lock();
@@ -443,8 +437,14 @@ public class ViewServer implements Runnable {
     }
 
     private interface WindowListener {
+        /**
+         * Windows changed.
+         */
         void windowsChanged();
 
+        /**
+         * Focus changed.
+         */
         void focusChanged();
     }
 
@@ -456,6 +456,11 @@ public class ViewServer implements Runnable {
 
         private final Object[] mLock = new Object[0];
 
+        /**
+         * Instantiates a new View server worker.
+         *
+         * @param client the client
+         */
         public ViewServerWorker(Socket client) {
             mClient = client;
             mNeedWindowListUpdate = false;
@@ -750,6 +755,11 @@ public class ViewServer implements Runnable {
     private static class UncloseableOutputStream extends OutputStream {
         private final OutputStream mStream;
 
+        /**
+         * Instantiates a new Uncloseable output stream.
+         *
+         * @param stream the stream
+         */
         UncloseableOutputStream(OutputStream stream) {
             mStream = stream;
         }
@@ -789,7 +799,7 @@ public class ViewServer implements Runnable {
     }
 
     /**
-     * 一个空的ViewServer类
+     * An empty ViewServer class
      */
     private static class NoopViewServer extends ViewServer {
         private NoopViewServer() {
