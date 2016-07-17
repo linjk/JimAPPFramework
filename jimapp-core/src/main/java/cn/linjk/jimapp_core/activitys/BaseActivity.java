@@ -22,18 +22,18 @@ public class BaseActivity extends Activity{
         AppManager.getAppManager().addActivity(this);
         Log.i(TAG, "--> Current Activity: " + getRunningActivityName());
 
-        if (AndroidUtils.isDebuggable(this)) {
-            ViewServer.get(this).addWindow(this);
-        }
+//        if (AndroidUtils.isDebuggable(this)) {
+//            ViewServer.get(this).addWindow(this);
+//        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        if (AndroidUtils.isDebuggable(this)) {
-            ViewServer.get(this).setFocusedWindow(this);
-        }
+//        if (AndroidUtils.isDebuggable(this)) {
+//            ViewServer.get(this).setFocusedWindow(this);
+//        }
     }
 
     @Override
@@ -42,9 +42,9 @@ public class BaseActivity extends Activity{
 
         AppManager.getAppManager().removeActivity(this);
 
-        if (AndroidUtils.isDebuggable(this)) {
-            ViewServer.get(this).removeWindow(this);
-        }
+//        if (AndroidUtils.isDebuggable(this)) {
+//            ViewServer.get(this).removeWindow(this);
+//        }
     }
 
     public void ExitCurrentApp() {
