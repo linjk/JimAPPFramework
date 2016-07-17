@@ -14,8 +14,9 @@ import java.util.regex.PatternSyntaxException;
 public class StringUtils {
     /**
      * Convert hex-string to byte[] array format.
-     * @param string
-     * @return
+     *
+     * @param string the string
+     * @return byte [ ]
      */
     public static byte[] HexStringToByteArray(String string) {
         String resultString = null;
@@ -66,10 +67,24 @@ public class StringUtils {
         return null;
     }
 
+    /**
+     * Byte array to hex string string.
+     *
+     * @param data the data
+     * @return the string
+     */
     public static String ByteArrayToHexString(byte[] data) {
         return ByteArrayToHexString(data, 0, data.length);
     }
 
+    /**
+     * Byte array to hex string string.
+     *
+     * @param data       the data
+     * @param startIndex the start index
+     * @param length     the length
+     * @return the string
+     */
     public static String ByteArrayToHexString(byte[] data,
                                               int startIndex, int length) {
         StringBuffer sb = new StringBuffer(length*3);
@@ -82,26 +97,46 @@ public class StringUtils {
         return sb.toString().toUpperCase(Locale.ENGLISH);
     }
 
+    /**
+     * Byte to hex string.
+     *
+     * @param data the data
+     * @return the string
+     */
     public static String ByteToHex(byte data) {
         return ByteToHex(data, 2);
     }
 
+    /**
+     * Byte to hex string.
+     *
+     * @param data         the data
+     * @param outputLength the output length
+     * @return the string
+     */
     public static String ByteToHex(byte data, int outputLength) {
         String tmp = Integer.toHexString((data&0x000000FF));
 
         return padLeftToRightAlign(tmp, outputLength, '0');
     }
 
+    /**
+     * Is string null or empty boolean.
+     *
+     * @param string the string
+     * @return the boolean
+     */
     public static boolean isStringNullOrEmpty(String string) {
         return string==null || string.trim().length()==0;
     }
 
     /**
      * RightAlign the string with filling specific characteristic in the left side.
-     * @param string
-     * @param totalLength
-     * @param fillChar
-     * @return
+     *
+     * @param string      the string
+     * @param totalLength the total length
+     * @param fillChar    the fill char
+     * @return string
      */
     public static String padLeftToRightAlign(String string,
                                              int totalLength,
