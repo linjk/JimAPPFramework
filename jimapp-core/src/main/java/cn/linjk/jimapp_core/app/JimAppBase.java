@@ -2,9 +2,6 @@ package cn.linjk.jimapp_core.app;
 
 import android.app.Application;
 
-import cn.linjk.jimapp_core.R;
-import cn.linjk.jimapp_core.utils.ToastUtils;
-
 /**
  * Created by LinJK on 6/23/16.
  */
@@ -24,8 +21,6 @@ public class JimAppBase extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
-
-        ToastUtils.init(R.layout.toast, R.id.imageViewToast, R.id.textViewMesssage);
     }
 
     public boolean isInBackground() {
